@@ -39,7 +39,28 @@ class App extends React.Component {
     
 
     if(this.state.pandoraBox.length === 1)
-    this.state.pandoraBox.push(e.target.innerHTML)
+      this.state.pandoraBox.push(e.target.innerHTML)
+
+      if(this.state.pandoraBox.length === 2) {
+        switch(this.state.pandoraBox[1]) {
+          case "x2":
+              this.setState({ curr: Number(this.state.pandoraBox[0]) * Number(this.state.pandoraBox[0]), ok: true })
+              this.state.pandoraBox.push(this.state.curr)
+              break
+          case "%":
+              console.log('AQUI')
+              let panNumber = Number(this.state.pandoraBox[0]/100)
+              this.setState({ curr: Number(this.state.pandoraBox[0]) / 100, ok: true })
+              this.state.pandoraBox.pop()
+              this.state.pandoraBox.pop()
+              this.state.pandoraBox.push(panNumber)
+              this.state.pandoraBox.push('X')
+              console.log('FIZ')
+              break
+          default:
+            console.log('nada')
+      }
+    }
 
     if(this.state.pandoraBox.length === 3) {
       let res = 0
@@ -60,14 +81,7 @@ class App extends React.Component {
             this.setState({ curr: Number(this.state.pandoraBox[0]) * Number(this.state.pandoraBox[2]), pandoraBox: [], ok: true })
             console.log(res)
             break
-            case "x2":
-              this.setState({ curr: Number(this.state.pandoraBox[0]) * Number(this.state.pandoraBox[0]), pandoraBox: [], ok: true })
-              console.log(res)
-              break
-            case "%":
-                this.setState({ curr: Number(this.state.pandoraBox[0]) / 100, pandoraBox: [], ok: true })
-                console.log(res)
-                break
+          
       default:
         console.log('nada')
       }
